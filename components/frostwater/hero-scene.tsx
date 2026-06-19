@@ -145,9 +145,7 @@ function DataParticles() {
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
-          count={count}
-          array={positions}
-          itemSize={3}
+          args={[positions, 3]}
         />
       </bufferGeometry>
       <pointsMaterial
@@ -195,12 +193,13 @@ function ConnectingLines() {
           <bufferGeometry>
             <bufferAttribute
               attach="attributes-position"
-              count={2}
-              array={new Float32Array([
-                line.start.x, line.start.y, line.start.z,
-                line.end.x, line.end.y, line.end.z
-              ])}
-              itemSize={3}
+              args={[
+                new Float32Array([
+                  line.start.x, line.start.y, line.start.z,
+                  line.end.x, line.end.y, line.end.z
+                ]),
+                3
+              ]}
             />
           </bufferGeometry>
           <lineBasicMaterial color="#3b82f6" transparent opacity={0.3} />

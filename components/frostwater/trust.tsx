@@ -98,18 +98,37 @@ export function Trust() {
                   <MapPin className="h-6 w-6 text-primary" />
                 </div>
                 <span className="text-primary text-sm font-medium tracking-wide uppercase">
-                  Public Sector Experience
+                  Featured Case Study
                 </span>
               </div>
               
-              <p className="text-xl lg:text-2xl text-foreground leading-relaxed">
-                FrostWaterStudios is currently involved in government-related digital twin 
-                and immersive visualization work in South Africa, helping translate complex 
-                infrastructure environments into interactive 3D experiences.
+              <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-4">
+                South African Government Infrastructure Digital Twin
+              </h3>
+              
+              <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+                FrostWaterStudios is currently partnered with the South African Public Sector 
+                to build next-generation infrastructure digital twins, translating complex 
+                civil environments into secure, interactive 3D models.
               </p>
 
+              <div className="grid sm:grid-cols-3 gap-6 mb-8">
+                <div className="space-y-2 border-l-2 border-primary/30 pl-4">
+                  <h4 className="text-sm font-semibold text-primary uppercase tracking-wider">The Challenge</h4>
+                  <p className="text-sm text-muted-foreground">Mapping high-security physical infrastructure into accurate, real-time virtual environments.</p>
+                </div>
+                <div className="space-y-2 border-l-2 border-primary/30 pl-4">
+                  <h4 className="text-sm font-semibold text-primary uppercase tracking-wider">Tech Stack</h4>
+                  <p className="text-sm text-muted-foreground">Custom WebGL, Real-Time Data Streaming, and VR/MR Interfaces.</p>
+                </div>
+                <div className="space-y-2 border-l-2 border-primary/30 pl-4">
+                  <h4 className="text-sm font-semibold text-primary uppercase tracking-wider">The Goal</h4>
+                  <p className="text-sm text-muted-foreground">Empowering stakeholders with remote operations dashboards and risk-free procedure training.</p>
+                </div>
+              </div>
+
               {/* Subtle indicator */}
-              <div className="flex items-center gap-4 mt-8 pt-6 border-t border-primary/10">
+              <div className="flex items-center gap-4 pt-6 border-t border-primary/10">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Globe className="h-4 w-4 text-primary" />
                   <span>Active Government Projects</span>

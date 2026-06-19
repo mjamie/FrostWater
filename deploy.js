@@ -25,6 +25,7 @@ if (fs.existsSync(envPath)) {
 async function deploy() {
   const client = new ftp.Client();
   client.ftp.verbose = true;
+  client.ftp.timeout = 150000; // 2.5 minutes timeout to handle shared hosting latency
 
   const ftpHost = process.env.FTP_HOST;
   const ftpUser = process.env.FTP_USER;

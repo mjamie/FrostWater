@@ -1,9 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ArrowUpRight, Building2, Train, Shield, Factory, Layers, Cpu, Globe } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Building2, Train, Shield, Factory, Layers, Cpu, Globe, Play } from "lucide-react";
 import Link from "next/link";
 import { useRef, useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const capabilities = [
   {
@@ -88,7 +89,13 @@ function CapabilityCard({ capability, index }: { capability: typeof capabilities
       />
 
       {/* Visual - Abstract 3D representation */}
-      <div className="relative h-48 overflow-hidden border-b border-primary/10">
+      <div 
+        onClick={() => toast.info("Video Demonstration Coming Soon", {
+          description: `We are currently producing a high-fidelity video walkthrough for our ${capability.title} solution. Check back soon!`,
+          duration: 5000,
+        })}
+        className="relative h-48 overflow-hidden border-b border-primary/10 cursor-pointer"
+      >
         <div className="absolute inset-0 flex items-center justify-center">
           {/* Wireframe grid animation */}
           <div className="relative w-full h-full">
@@ -152,8 +159,28 @@ function CapabilityCard({ capability, index }: { capability: typeof capabilities
           </div>
         </div>
 
+        {/* Demo Coming Soon Badge */}
+        <div className="absolute top-3 left-3 z-20">
+          <span className="inline-flex items-center gap-1.5 text-[10px] uppercase font-bold tracking-wider px-2 py-1 rounded bg-black/60 backdrop-blur-md border border-primary/20 text-foreground/90">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+            Demo Coming Soon
+          </span>
+        </div>
+
+        {/* Play Overlay */}
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-background/40 opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-[1px]">
+          <div className="flex flex-col items-center gap-2">
+            <div className="p-3.5 rounded-full bg-primary/15 border border-primary/30 text-primary shadow-lg shadow-primary/20 transform scale-90 group-hover:scale-100 transition-all duration-300 flex items-center justify-center">
+              <Play className="h-5 w-5 fill-primary/30 ml-0.5" />
+            </div>
+            <span className="text-[10px] font-semibold text-primary tracking-widest uppercase bg-black/80 px-2 py-0.5 rounded border border-primary/20">
+              Click to Play
+            </span>
+          </div>
+        </div>
+
         {/* Icon */}
-        <div className="absolute bottom-4 right-4 z-10">
+        <div className="absolute bottom-4 right-4 z-20 group-hover:opacity-0 transition-opacity duration-300">
           <div className="p-3 rounded-xl bg-background/80 backdrop-blur-sm border border-primary/20">
             <capability.icon className="h-6 w-6 text-primary" />
           </div>
