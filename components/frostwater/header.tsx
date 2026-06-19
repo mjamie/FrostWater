@@ -71,14 +71,22 @@ export function Header() {
           </nav>
 
           {/* CTA Button */}
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             <Button
               asChild
-              className="bg-primary/10 border border-primary text-primary hover:bg-primary hover:text-background transition-all duration-300 shadow-lg shadow-primary/20"
+              className="hidden lg:flex bg-primary/10 border border-primary text-primary hover:bg-primary hover:text-background transition-all duration-300 shadow-lg shadow-primary/20"
             >
               <Link href="#contact">
                 Book a Consultation
                 <ArrowUpRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+            <Button
+              asChild
+              className="lg:hidden bg-primary/10 border border-primary text-primary hover:bg-primary hover:text-background transition-all duration-300 px-3 py-1.5 text-xs shadow-lg shadow-primary/20"
+            >
+              <Link href="#contact">
+                Book Call
               </Link>
             </Button>
           </div>
