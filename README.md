@@ -24,12 +24,15 @@ Open http://127.0.0.1:8080. Use `-Port 8081` if needed. Requires PHP 8.1 or late
 - `scripts/start-dev.ps1`: local PHP preview.
 - `AUDIT-2026-10-02.md`: audit snapshot and outstanding work.
 
-The current SVG/CSS hero animation and canvas background are preserved. The older unreferenced Three.js scene, its vendor files, and unused full-size logo were archived.
+The homepage now introduces interactive 3D experiences through three connected, realistic studies: a closed electric drive that expands on scroll, an operating production cell, and equipment with an interactive inspection panel. FrostWater blue grid lines and outlined cubes connect the scenes. Native scrolling cues short, interruptible animations; all text remains in the page flow and the final scene scrolls into the existing studio film. Reduced motion displays completed scenes without animation. A rendered product still covers unavailable JavaScript or WebGL. See `docs/interactive-introduction.md` for implementation and verification.
+
+This experiment lives in the isolated `FrostWater-experiences` worktree on `codex/interactive-experiences`. The original `FrostWater` folder remains unchanged. The local experiment preview uses port 8083: `powershell -NoProfile -File scripts/start-dev.ps1 -Port 8083`.
 
 ## Check and package
 
 ```powershell
 node scripts/check.mjs
+node --test scripts/experience.test.mjs
 powershell -NoProfile -File scripts/package.ps1
 ```
 

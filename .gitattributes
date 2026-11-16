@@ -1,0 +1,2 @@
+# Preserve upstream formatting inside Three.js and its generated GLSL strings.
+public/assets/js/vendor/*.js -whitespace

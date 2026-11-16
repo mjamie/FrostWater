@@ -11,7 +11,9 @@
 <link rel="stylesheet" href="assets/css/styles.css">
 <link rel="stylesheet" href="assets/css/site.css?v=16">
 <script src="assets/js/site.js?v=9" defer></script>
-<script src="assets/js/visuals.js?v=phase1" defer></script>
+<script src="assets/js/visuals.js?v=architecture1" defer></script>
+<link rel="stylesheet" href="assets/css/experience.css?v=2">
+<script src="assets/js/experience-loader.js?v=2" defer></script>
 </head>
 <body class="font-sans antialiased bg-background text-foreground">
 <a class="skip-link" href="#services">Skip to content</a>
@@ -85,116 +87,35 @@
 </nav>
 </div>
 </header>
-<section class="relative min-h-screen flex items-center pt-20 lg:pt-0 overflow-hidden static-hero">
-<div class="absolute inset-0 z-0">
-<div class="hero-grid" aria-hidden="true">
+<section class="experience-intro" aria-label="Interactive 3D experiences by FrostWater Studios" aria-describedby="experience-description">
+<p id="experience-description" class="sr-only">Three illustrative 3D scenes: a cutaway electric drive, a working production cell, and equipment you can explore. Scroll normally in either direction. The scenes animate between chapters; the text scrolls with the page.</p>
+<div class="experience-stage">
+<picture class="experience-poster" aria-hidden="true"><source media="(max-width: 600px) and (max-aspect-ratio: 6/5)" srcset="assets/media/experience-product-mobile.png?v=2"><source media="(max-width: 1023px) and (max-aspect-ratio: 6/5)" srcset="assets/media/experience-product-tablet.png?v=2"><img src="assets/media/experience-product-desktop.png?v=2" alt="" width="1440" height="900" fetchpriority="high"></picture>
+<canvas class="experience-canvas" aria-hidden="true"></canvas>
 </div>
+<div class="experience-track">
+<article class="experience-chapter" aria-labelledby="experience-title">
+<div class="experience-copy">
+<h1 id="experience-title"><span>Complex ideas.</span><span>Brought to life.</span></h1>
+<p>We bring complex ideas to life through interactive 3D experiences. See every detail. Discover what&rsquo;s possible.</p>
+<a class="experience-link" href="#work">Explore our work <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></a>
 </div>
-<div class="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent z-10 pointer-events-none">
+</article>
+<article class="experience-chapter" aria-labelledby="experience-system-title">
+<div class="experience-copy">
+<h2 id="experience-system-title">See it working.</h2>
+<p>Bring spaces, equipment and processes together. Make the connections visible, and the complex easier to understand.</p>
 </div>
-<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/50 z-10 pointer-events-none">
+</article>
+<article class="experience-chapter" aria-labelledby="experience-training-title">
+<div class="experience-copy">
+<h2 id="experience-training-title">Step into the experience.</h2>
+<p>Explore equipment. Practise a process. Turn information into something people can learn by doing.</p>
+<div class="experience-actions"><button class="experience-inspect" type="button" aria-pressed="false" aria-describedby="experience-feedback" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h16v16H4zM13 4v16M16 12h1"/></svg><span>Open access panel</span></button></div>
+<p class="experience-feedback" id="experience-feedback" role="status" aria-live="polite"></p>
 </div>
-<svg class="spatial-visual" viewBox="0 0 560 560" fill="none" aria-hidden="true" focusable="false">
-<defs>
-<radialGradient id="spatial-halo"><stop stop-color="#147bc1" stop-opacity=".25"></stop><stop offset="1" stop-color="#147bc1" stop-opacity="0"></stop></radialGradient>
-<radialGradient id="spatial-surface" cx="30%" cy="25%" r="80%"><stop stop-color="#45c9ee" stop-opacity=".14"></stop><stop offset=".7" stop-color="#1671a0" stop-opacity=".04"></stop><stop offset="1" stop-color="#083956" stop-opacity=".2"></stop></radialGradient>
-<linearGradient id="spatial-stroke" x1="110" y1="100" x2="440" y2="420" gradientUnits="userSpaceOnUse"><stop stop-color="#a4edff"></stop><stop offset=".45" stop-color="#3bbce9"></stop><stop offset="1" stop-color="#185477"></stop></linearGradient>
-</defs>
-<circle cx="280" cy="270" r="265" fill="url(#spatial-halo)"></circle>
-<g class="spatial-float">
-<circle cx="280" cy="270" r="145" fill="url(#spatial-surface)" stroke="url(#spatial-stroke)" stroke-width="1.3"></circle>
-<g stroke="url(#spatial-stroke)" stroke-width=".65" opacity=".55"><ellipse cx="280" cy="165" rx="100" ry="22.96551724137931"></ellipse><ellipse cx="280" cy="200" rx="126.98425099200294" ry="27.310344827586206"></ellipse><ellipse cx="280" cy="235" rx="140.71247279470288" ry="31.655172413793103"></ellipse><ellipse cx="280" cy="270" rx="145" ry="36"></ellipse><ellipse cx="280" cy="305" rx="140.71247279470288" ry="31.655172413793103"></ellipse><ellipse cx="280" cy="340" rx="126.98425099200294" ry="27.310344827586206"></ellipse><ellipse cx="280" cy="375" rx="100" ry="22.96551724137931"></ellipse><ellipse cx="280" cy="270" rx="40" ry="145"></ellipse><ellipse cx="280" cy="270" rx="85" ry="145"></ellipse><ellipse cx="280" cy="270" rx="120" ry="145"></ellipse><ellipse cx="280" cy="270" rx="145" ry="145"></ellipse></g>
-<ellipse cx="280" cy="270" rx="225" ry="72" transform="rotate(-28 280 270)" stroke="#50b8de" stroke-opacity=".35"></ellipse>
-<ellipse cx="280" cy="270" rx="198" ry="188" stroke="#3ba6d1" stroke-opacity=".13" stroke-dasharray="2 9"></ellipse>
-<g class="spatial-orbit"><circle cx="455" cy="179" r="4" fill="#a5efff"></circle><circle cx="455" cy="179" r="10" stroke="#7adfff" stroke-opacity=".3"></circle><circle cx="105" cy="361" r="3" fill="#55c6ef"></circle></g>
-<g stroke="#5dc8eb" stroke-width=".8" stroke-opacity=".45"><path d="M180 175L135 120H70M377 325L436 378H505M321 133V85H399"></path><circle cx="180" cy="175" r="3" fill="#72dfff"></circle><circle cx="377" cy="325" r="3" fill="#72dfff"></circle><circle cx="321" cy="133" r="3" fill="#72dfff"></circle></g>
-<g stroke="#7cd5ef" stroke-opacity=".4"><path d="M70 110H110M70 117H94M465 389H505M481 396H505M370 73H399"></path></g>
-<g class="spatial-pulse" fill="#bcf2ff"><circle cx="229" cy="232" r="2.5"></circle><circle cx="332" cy="290" r="2"></circle><circle cx="271" cy="376" r="2.5"></circle></g>
-</g>
-<path d="M248 492H312" stroke="#42b9e6" stroke-opacity=".3"></path>
-<circle cx="280" cy="492" r="2" fill="#72dfff"></circle>
-</svg>
-<div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-24 w-full z-20">
-<div class="max-w-3xl">
-<div class="flex items-center gap-3 text-primary text-sm font-medium tracking-wide mb-8">
-<span class="w-12 h-px bg-gradient-to-r from-primary to-transparent">
-</span>
-<span class="uppercase">3D • VR • MR • Digital Twins</span>
-</div>
-<h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold leading-[1.1] mb-8"><span class="text-foreground block">EXPLORE IN 3D.</span><span class="text-foreground block">PREPARE FOR</span><span class="block mt-2"><span class="text-primary">THE REAL WORLD.</span></span></h1>
-<p class="text-lg lg:text-xl text-muted-foreground max-w-2xl leading-relaxed mb-10">We build 3D visualizations, virtual experiences, and digital twins—interactive models of real places and assets—to help teams review designs, explain complex projects, and practise procedures.</p>
-<div class="flex flex-col sm:flex-row gap-4 mb-12">
-<a class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive h-10 rounded-md has-[&gt;svg]:px-4 bg-primary text-background hover:bg-primary/90 px-8 py-6 text-lg shadow-lg shadow-primary/30 transition-all hover:shadow-xl hover:shadow-primary/40 hover:scale-105" href="#contact">Request a Consultation<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right ml-2 h-5 w-5" aria-hidden="true">
-<path d="M7 7h10v10">
-</path>
-<path d="M7 17 17 7">
-</path>
-</svg>
-</a>
-<a class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*=&#x27;size-&#x27;])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-background shadow-xs hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-10 rounded-md has-[&gt;svg]:px-4 border-2 border-foreground/30 text-foreground hover:bg-foreground/10 hover:border-primary px-8 py-6 text-lg transition-all hover:scale-105" href="#studio-film">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play mr-2 h-5 w-5" aria-hidden="true">
-<path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z">
-</path>
-</svg>Watch our video</a>
-</div>
-<div class="flex flex-wrap gap-3">
-<div class="flex items-center gap-2 px-4 py-2.5 rounded-full border border-primary/30 bg-primary/5 backdrop-blur-sm hover:bg-primary/10 hover:border-primary/50 transition-all cursor-default group" style="animation-delay:0ms">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-box h-4 w-4 text-primary group-hover:scale-110 transition-transform" aria-hidden="true">
-<path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z">
-</path>
-<path d="m3.3 7 8.7 5 8.7-5">
-</path>
-<path d="M12 22V12">
-</path>
-</svg>
-<span class="text-sm text-foreground/80">3D Visualization</span>
-</div>
-<div class="flex items-center gap-2 px-4 py-2.5 rounded-full border border-primary/30 bg-primary/5 backdrop-blur-sm hover:bg-primary/10 hover:border-primary/50 transition-all cursor-default group" style="animation-delay:100ms">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-glasses h-4 w-4 text-primary group-hover:scale-110 transition-transform" aria-hidden="true">
-<circle cx="6" cy="15" r="4">
-</circle>
-<circle cx="18" cy="15" r="4">
-</circle>
-<path d="M14 15a2 2 0 0 0-2-2 2 2 0 0 0-2 2">
-</path>
-<path d="M2.5 13 5 7c.7-1.3 1.4-2 3-2">
-</path>
-<path d="M21.5 13 19 7c-.7-1.3-1.5-2-3-2">
-</path>
-</svg>
-<span class="text-sm text-foreground/80">VR / MR</span>
-</div>
-<div class="flex items-center gap-2 px-4 py-2.5 rounded-full border border-primary/30 bg-primary/5 backdrop-blur-sm hover:bg-primary/10 hover:border-primary/50 transition-all cursor-default group" style="animation-delay:200ms">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-database h-4 w-4 text-primary group-hover:scale-110 transition-transform" aria-hidden="true">
-<ellipse cx="12" cy="5" rx="9" ry="3">
-</ellipse>
-<path d="M3 5V19A9 3 0 0 0 21 19V5">
-</path>
-<path d="M3 12A9 3 0 0 0 21 12">
-</path>
-</svg>
-<span class="text-sm text-foreground/80">Digital Twins</span>
-</div>
-<div class="flex items-center gap-2 px-4 py-2.5 rounded-full border border-primary/30 bg-primary/5 backdrop-blur-sm hover:bg-primary/10 hover:border-primary/50 transition-all cursor-default group" style="animation-delay:300ms">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-graduation-cap h-4 w-4 text-primary group-hover:scale-110 transition-transform" aria-hidden="true">
-<path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z">
-</path>
-<path d="M22 10v6">
-</path>
-<path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5">
-</path>
-</svg>
-<span class="text-sm text-foreground/80">Training Simulations</span>
-</div>
-</div>
-</div>
-</div>
-<div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 hidden lg:flex flex-col items-center gap-2">
-<span class="text-xs text-muted-foreground uppercase tracking-widest">Scroll to explore</span>
-<div class="w-6 h-10 rounded-full border-2 border-primary/30 flex justify-center pt-2">
-<div class="w-1.5 h-3 bg-primary rounded-full animate-bounce">
-</div>
-</div>
+</article>
+<p class="experience-scroll"><svg viewBox="0 0 20 26" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><path d="M10 2v20M4 16l6 6 6-6"/></svg><span>Scroll to bring ideas to life</span><a class="experience-skip" href="#studio-film">Skip intro</a></p>
 </div>
 </section>
 <section id="studio-film" class="studio-film" aria-labelledby="studio-film-title">
