@@ -12,9 +12,9 @@ The source retains `controls`, `playsinline` and `preload="none"`. Custom contro
 - Space-key playback, focus handoff, seek-slider keyboard input, mute and volume verified.
 - Desktop 1440x900, phone 390x844 and compact phone 320x568 checked. No horizontal overflow; compact controls remain inside the player. Centre button alignment is exact.
 - JavaScript-disabled reload retains native controls and hides the custom controls.
-- The in-app browser rejects full-screen requests; the error message was verified. Actual full-screen presentation and physical iOS/Safari remain unverified.
+- The in-app browser rejects full-screen requests; the error message was verified. Full-screen presentation and exit were subsequently verified in desktop Chrome before deployment. Physical iOS/Safari remain unverified.
 - JavaScript syntax, local asset references and whitespace checks pass.
 
 The basic PHP development server does not support byte-range requests and reports an empty seekable interval for this MP4. Seeking was verified using a local range-capable PHP router, where the seekable interval is the full 0–90 seconds. The router and desktop/mobile screenshots are under ignored `dist/video-player/`, not part of the published source. A media-serving host must support byte ranges for normal seeking.
 
-This change is on `codex/interactive-experiences`. It does not merge into `main` or deploy the website.
+This change was developed on `codex/interactive-experiences`, then merged into `main` and deployed with the owner's approval on 16 November 2026. See [deployment-2026-11-16.md](deployment-2026-11-16.md).
