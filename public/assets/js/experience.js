@@ -1,7 +1,6 @@
 import * as THREE from './vendor/three.min.js';
-import { HDRLoader } from './vendor/HDRLoader.js';
-import { createModels } from './experience-models.js?v=2';
-import { createEffects } from './experience-effects.js?v=2';
+import { createModels } from './experience-models.js?v=3';
+import { createEffects } from './experience-effects.js?v=3';
 import { ExperienceJourney, chapterAt, range, ease, smooth } from './experience-timeline.js?v=2';
 
 const root = document.querySelector('.experience-intro');
@@ -27,49 +26,56 @@ async function start(root) {
   renderer.setClearColor(0x000000, 0);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.05;
+  renderer.toneMappingExposure = 1.12;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFShadowMap;
   renderer.shadowMap.autoUpdate = false;
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(34, 1, .1, 150);
-  scene.add(new THREE.HemisphereLight('#d7e6f0', '#26323b', .75));
-  const key = new THREE.DirectionalLight('#ffefdc', 2.6);
+  scene.add(new THREE.HemisphereLight('#d7e6f0', '#15232e', .6));
+  const key = new THREE.DirectionalLight('#f3f0e9', 3.1);
   key.position.set(-6, 12, 9); key.target.position.set(0, 1, 0);
   key.castShadow = true;
   key.shadow.mapSize.set(1536, 1536);
   Object.assign(key.shadow.camera, { left: -8, right: 8, top: 7, bottom: -6, near: .5, far: 35 });
   key.shadow.normalBias = .018; key.shadow.bias = -.0001;
   scene.add(key, key.target);
-  const fill = new THREE.DirectionalLight('#afd7f4', .7); fill.position.set(6, 7, -5); scene.add(fill);
-  const rim = new THREE.DirectionalLight('#b8c8dc', .6); rim.position.set(-4, 3, -6); scene.add(rim);
+  const fill = new THREE.DirectionalLight('#b5d6ee', 1.1); fill.position.set(6, 7, -5); scene.add(fill);
+  const rim = new THREE.DirectionalLight('#d2e0ed', 1.4); rim.position.set(-4, 3, -6); scene.add(rim);
 
   // Broad photographic reflections, without a visible backdrop or frame.
-  const studio = new THREE.Scene(); studio.background = new THREE.Color('#718494');
-  const panelGeometry = new THREE.PlaneGeometry(1, 1);
-  const panelMaterials = [];
-  for (const [position, size, color, power] of [
-    [[-8, 8, 7], [8, 10], '#f6efe2', 3], [[7, 6, -6], [5, 10], '#bed9ee', 1.8],
-    [[0, 12, 0], [14, 9], '#f3f0e8', 2], [[0, -7, 5], [24, 18], '#101f2d', .4],
-    [[8, 1, 12], [2, 12], '#cddce3', 1.6],
-  ]) {
-    const material = new THREE.MeshBasicMaterial({ color, side: THREE.DoubleSide }); material.color.multiplyScalar(power); panelMaterials.push(material);
-    const panel = new THREE.Mesh(panelGeometry, material); panel.position.set(...position); panel.scale.set(...size, 1); panel.lookAt(0, 1, 0); studio.add(panel);
+  let environmentTarget;
+  function studioEnvironment() {
+    const studio = new THREE.Scene(); studio.background = new THREE.Color('#172431');
+    const panelGeometry = new THREE.PlaneGeometry(1, 1);
+    const panelMaterials = [];
+    for (const [position, size, color, power] of [
+      [[-8, 8, 7], [8, 10], '#f6f0e7', 4], [[7, 6, -6], [4, 10], '#c5deef', 3],
+      [[0, 12, 0], [12, 8], '#f3f0e8', 3], [[0, -7, 5], [24, 18], '#101f2d', .3],
+      [[8, 1, 12], [2, 12], '#dbe4ea', 3.5],
+    ]) {
+      const material = new THREE.MeshBasicMaterial({ color, side: THREE.DoubleSide }); material.color.multiplyScalar(power); panelMaterials.push(material);
+      const panel = new THREE.Mesh(panelGeometry, material); panel.position.set(...position); panel.scale.set(...size, 1); panel.lookAt(0, 1, 0); studio.add(panel);
+    }
+    const generator = new THREE.PMREMGenerator(renderer);
+    if (environmentTarget) { resources.delete(environmentTarget); environmentTarget.dispose(); }
+    environmentTarget = keep(generator.fromScene(studio, .04));
+    scene.environment = environmentTarget.texture; scene.environmentIntensity = 1;
+    generator.dispose(); panelGeometry.dispose(); panelMaterials.forEach(material => material.dispose());
   }
-  const generator = new THREE.PMREMGenerator(renderer);
-  const studioMap = keep(generator.fromScene(studio, .04));
-  scene.environment = studioMap.texture; scene.environmentIntensity = .8;
-  generator.dispose(); panelGeometry.dispose(); panelMaterials.forEach(material => material.dispose());
+  studioEnvironment();
   const models = createModels({ scene, keep });
   const effects = createEffects({ scene, ...models, keep });
   const journey = new ExperienceJourney();
   let frame = 0, width = 1, height = 1, top = 0, bottom = 1;
   let disposed = false, lost = false, dirty = true, hiddenAt = 0, wasMoving = false;
   let thresholds = [0, 1, 2], copyBounds = [], lastChapter = -1;
-  let daylight = null;
   const target = new THREE.Vector3();
 
-  function requestPaint() {
+  function requestPaint(event) {
+    // Redraw on native scroll even in a settled pose: the sticky canvas can
+    // expose previously clipped pixels as it enters or leaves the viewport.
+    if (event?.type === 'scroll') dirty = true;
     if (!frame && !disposed && !lost && !document.hidden) frame = requestAnimationFrame(paint);
   }
   function paint(now = performance.now()) {
@@ -105,13 +111,13 @@ async function start(root) {
     const aspect = width / height;
     const narrow = stacked.matches;
     const opening = state.expansion * state.weights[0];
-    const vertical = (narrow ? Math.max(12, 10.8 / aspect) : Math.max(10, 16.8 / aspect)) + opening * 1.75;
+    const vertical = (narrow ? Math.max(12, (height < 700 ? 10.8 : 9.4) / aspect) : Math.max(10, 16.8 / aspect)) + opening * 1.75;
     const radius = vertical / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)));
     const angle = .63 + Math.sin(state.camera * 1.7) * .1 - state.camera * .035;
     const elevation = .30 + state.camera * .025;
     const centerX = narrow ? .5 : .715;
-    const centerY = narrow ? (height < 700 ? .78 : .68) : .56;
-    target.set(0, 1.5 + state.camera * .05 + opening * .5, 0);
+    const centerY = narrow ? (height < 700 ? .78 - state.weights[0] * .08 : .68) - state.weights[1] * .04 : height < 500 ? .66 : .56;
+    target.set(0, 1.5 + state.camera * .05 + state.weights[2] * .35 + opening * .5, 0);
     camera.position.set(Math.sin(angle) * Math.cos(elevation) * radius, target.y + Math.sin(elevation) * radius, Math.cos(angle) * Math.cos(elevation) * radius);
     camera.lookAt(target);
     camera.setViewOffset(width, height, (.5 - centerX) * width, (.5 - centerY) * height, width, height);
@@ -163,14 +169,8 @@ async function start(root) {
   }
   function contextRestored() {
     lost = false; dirty = true;
-    if (daylight) applyDaylight(daylight);
+    studioEnvironment();
     inspect.hidden = false; measure();
-  }
-  function applyDaylight(texture) {
-    const pmrem = new THREE.PMREMGenerator(renderer);
-    const environment = keep(pmrem.fromEquirectangular(texture));
-    scene.environment = environment.texture; scene.environmentIntensity = .7;
-    scene.environmentRotation.y = 1.8; pmrem.dispose(); dirty = true; requestPaint();
   }
 
   camera.position.set(10, 7, 14); camera.lookAt(0, 1, 0);
@@ -195,10 +195,6 @@ async function start(root) {
   cancelAnimationFrame(frame); paint();
   root.dispatchEvent(new Event('experience:settled'));
   document.fonts.ready.then(measure);
-  new HDRLoader().load(new URL('../media/architecture-environment.hdr', import.meta.url).href, texture => {
-    if (disposed) { texture.dispose(); return; }
-    daylight = keep(texture); if (!lost) applyDaylight(texture);
-  }, undefined, () => { /* The local studio environment remains available. */ });
   addEventListener('pagehide', event => {
     if (event.persisted) return;
     disposed = true; cancelAnimationFrame(frame); resize.disconnect(); intersection.disconnect();

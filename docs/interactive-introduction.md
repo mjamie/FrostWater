@@ -1,55 +1,68 @@
 # FrostWater interactive introduction
 
-Interactive introduction on `codex/interactive-experiences`, developed in the isolated `FrostWater-experiences` worktree. Preview with `powershell -NoProfile -File scripts/start-dev.ps1 -Port 8083`. This branch remains separate from `main`; it has not been deployed.
+The interactive introduction lives on `codex/interactive-experiences` in the separate `FrostWater-experiences` worktree. It is not merged into `main` or deployed. Preview with `powershell -NoProfile -File scripts/start-dev.ps1 -Port 8083`.
 
-## Purpose and composition
+## Visual direction
 
-The user-approved message is: **We bring complex ideas to life through interactive 3D experiences.** Three distinct examples demonstrate detail, operation, and exploration. This expands the introduction beyond architecture while retaining the navy background, FrostWater blue (`#00aee9`), controlled digital assembly, realistic proportions, reflective materials and soft lighting.
+**We bring complex ideas to life through interactive 3D experiences.**
 
-The existing `styles.css`, `site.css` and earlier `architecture.css` remain the visual references. This introduction inherits Geist, the navy page background, light display type and underlined actions. Its chapter layout, subjects and motion timings are local to this surface; they do not establish a replacement design system.
+The three models follow the [approved concept board](interactive-model-reference.png), generated with the built-in image tool on 2026-11-16. The board is an art reference; the website renders original Three.js geometry with separate moving components. It does not play a video or display the board as its interactive scene.
 
-- A solid, closed electric drive opens on the first scroll, revealing its copper windings, laminated rotor, bearings, fan, terminal enclosure and mounts. The upper half-shell lifts clear of the rotor, with the terminal enclosure above it.
-- A production cell assembles around an articulated robot, roller conveyor, inspection gantry, guarded area and control station. Cartons move and the equipment demonstrates one short operating cycle.
-- An equipment familiarisation scene introduces a workshop cabinet. **Open access panel** operates its hinge and exposes the internal components; the same button closes it.
+The existing navy background, Geist typography, FrostWater blue (`#00aee9`), flow of text and native scrolling remain. The scene spans the page without a card, display base or viewer controls. Studio reflections and soft directional lighting reveal edge bevels, metal, copper and painted surfaces. A faint blueprint grid and transparent outlined construction cubes retain the original assembly language.
 
-These are original illustrative models, not client case studies, engineering specifications, live operational data, or a validated training procedure. Existing service and project copy outside the introduction is preserved.
+- **Understand:** the generator starts fully solid and closed. Its finned upper casing, terminal enclosure and bearing plates separate on the first scroll, exposing layered copper windings and a machined rotor. Real geometry includes chamfers, mounting ribs, fasteners, gasket rings, shaft details and a rear fan grille. Returning to the top closes it.
+- **See it work:** a production cell builds around an articulated robot, stainless roller conveyor, inspection sensor, three mesh guarding bays and an operator station. Cable runs follow the robot joints. Cartons and equipment demonstrate one short cycle.
+- **Learn by doing:** a folded-metal service cabinet contains two detailed filter modules with brackets, flanges, fittings, valves and routed pipes. A stainless bench, tools, storage tray and task light complete the workstation. **Open access panel** operates the real door hinge. Subtle blue corner brackets identify one internal module; the same control closes the door.
 
-## Interaction
+These are illustrative studies, not engineering specifications, validated training procedures or client case studies. The models remain editable in their scene-builder modules.
 
-The three text articles remain in normal document flow. A shared sticky canvas travels with them and releases naturally into the studio film. The sequence takes approximately 2.7 viewport heights on desktop and 2.9 on a typical portrait phone; compact screens can be taller to keep the content readable.
+## Interaction and accessibility
 
-The only scroll listener is passive. No wheel, touch-move or keyboard input is intercepted. There is no gesture gate, artificial scroll position, animation queue, or wait before reversing direction. Scroll thresholds retarget the illustration from its current pose, including during an unfinished transition. Scrolling quickly can bypass a scene. Skip intro and the existing site navigation remain native anchors.
+The three text articles remain in ordinary document flow. One sticky canvas releases naturally into the studio film. A continuous camera journey follows chapter changes and fits desktop, tablet, phone and compact landscape layouts.
 
-Assembly lasts 1.15 seconds and the camera settles over 1.5 seconds after a chapter change. The production demonstration starts 0.8 seconds after its chapter is selected and runs for 2.4 seconds. Geometry and text use short paths with decelerating easing. Cube outlines only appear at the active assembly front; they have a very small shader halo and no bloom pass. Rendering stops when motion has settled and while the introduction is offscreen. Tab visibility pauses the animation clock.
+The scroll listener is passive. No wheel, touch-move or keyboard input is intercepted. There is no gesture gate or animation queue. Scroll thresholds retarget the illustration from its current pose, even during an unfinished transition. A fast scroll can bypass an intermediate scene. Skip intro and site navigation use native anchors.
 
-Reduced motion presents the completed model for each chapter immediately and opens/closes the inspection panel without interpolation. All text remains fully visible. If JavaScript or WebGL is unavailable, the readable introduction uses a completed product still. Context loss hides the inspection action until rendering returns.
+Assembly lasts 1.15 seconds and the camera settles over 1.5 seconds. The production demonstration begins 0.8 seconds after its chapter is selected and runs for 2.4 seconds. Cube outlines appear only along the assembly front, with a restrained shader halo and no bloom pass. The opening product has no construction cubes. Native scroll requests a redraw even for a settled pose so the canvas can expose fresh pixels while moving through its sticky boundary. Rendering otherwise stops when idle and offscreen; background tabs pause the animation clock.
 
-## Files and assets
+Reduced motion presents completed scenes and inspection changes immediately. The generator still starts closed. All text remains visible. If JavaScript or WebGL is unavailable, a real browser render of the closed generator provides the fallback. Graphics context loss hides the inspection button and shows the still; recovery rebuilds the studio environment and restores the scene and button.
 
-- `public/assets/js/experience.js`: rendering, lighting, responsive camera, native-scroll chapter selection, lifecycle and interaction.
-- `experience-timeline.js`: interruptible, independently testable motion values and chapter timing.
-- `experience-models.js`: original procedural geometry, materials and articulated behaviour. Repeated fixed surfaces are merged by assembly/material to reduce draw calls.
-- `experience-effects.js`: antialiased blueprint grid, instanced outlined cubes, and matching surface/shadow reveal shaders.
-- `public/assets/css/experience.css`: typography, document-flow layout, responsive composition and reduced-motion styles.
-- `experience-loader.js`: progressive enhancement and initial-anchor reconciliation.
-- `public/assets/media/experience-product-{desktop,mobile,tablet}.png`: local browser renders of the completed original model at 1440×900, 390×844 and 768×1024. No external imagery or generation credits were used. These show the real scene, with the text and header hidden only for capture.
+## Source and assets
 
-Existing local Three.js and HDR dependencies are reused. Their original attribution remains in `public/assets/js/vendor/README.md` and the architectural introduction documentation. The older architectural modules remain as the previous experiment and are not imported by this version.
+- `public/assets/js/experience.js`: renderer, studio lighting, responsive camera, lifecycle, native-scroll chapter selection and inspection control.
+- `experience-models.js`: model assembly, material batching and repeatable poses.
+- `experience-geometry.js`: shared beveled shapes, lathed profiles, hardware, labels and procedural surface textures. Repeated shapes reuse geometry.
+- `experience-generator.js`, `experience-production.js`, `experience-training.js`: the three independent model builders and their articulated parts.
+- `experience-effects.js`: blueprint grid, instanced outlined cubes and matching surface/shadow reveal shaders.
+- `experience-timeline.js`: interruptible motion values and chapter timing.
+- `experience-loader.js`: progressive loading and initial anchor reconciliation.
+- `public/assets/css/experience.css`: existing responsive typography and text composition.
+- `public/assets/media/experience-product-{desktop,mobile,tablet}.png`: regenerated renders of the closed model at 1440x900, 390x844 and 768x1024. Text and navigation were hidden only for capture.
 
-## Verification
+Three.js is the existing local vendored dependency. The introduction now uses a procedural studio reflection environment instead of loading the architectural HDR. The older architectural modules and their attribution remain for the previous version; they are not imported by this introduction. No new external runtime dependency, model service or Higgsfield job was used.
 
-Run `node --test scripts/experience.test.mjs` and `node scripts/check.mjs`.
+## Verification — 2026-11-16
 
-Timeline tests cover reversal during assembly, fast chapter skipping, reduced motion, the operating sequence, background-tab timing, interruptible inspection, and native-input preservation. Browser evidence is saved under `dist/experience-check/` and is not packaged with the site.
+Run:
 
-Desktop (1440×900), portrait phone (390×844), tablet (768×1024), compact phone (320×568) and short landscape (568×320) layouts were inspected. Native wheel reversal, normal text movement, completed reduced-motion scenes and pointer/Space-key inspection activation were checked in the in-app browser. A real WebGL context loss displayed the fallback and preserved scrolling; restoring the context restored the scene and control. JavaScript-disabled capture confirms the completed fallback. Skip intro reached the film with its intended header clearance.
+```sh
+node --test scripts/experience.test.mjs scripts/experience-models.test.mjs scripts/architecture.test.mjs scripts/architecture-steps.test.mjs
+node scripts/check.mjs
+```
 
-Twelve timeline tests and all 94 local reference checks pass. Tests now include the closed initial frame, expansion without partial visibility, closing again at the top, and reduced-motion opening. The earlier three-scene version issued 53 GL draw calls on a product redraw and zero calls during 40 idle frames; that measurement predates the split casing and is not a fresh benchmark. The mechanical design detector found the same 58 pre-existing HTML findings as the prior page and no new findings in the introduction files. The studio-film section and everything after it match the original workspace byte-for-byte.
+All 33 tests and 101 local reference checks pass. The new geometry checks cover finite vertices and UVs, unit normals, scene budgets, exploded clearances, repeatable/reversed poses and independent cabinet hinges. Existing tests cover native input preservation, first-frame closure, interruptible transitions, reduced motion, timing and scene skipping.
 
-### Closed product refinement
+The fixed geometry is batched by material inside each animated group:
 
-The first frame uses complete geometry and a closed casing, with no construction cells. Visibility and expansion have separate motion values: the first scroll opens the product over 1.1 seconds, and returning to the top closes it. The upper half-shell rises 1.25 model units, the rotor rises 0.28, and the terminal enclosure rises 1.6. The camera makes room for the taller exploded view. The three fallback images were recaptured with the product closed, so loading and JavaScript-disabled views match the opening state. Cube assembly remains on transitions between scenes.
+| Model | Triangles | Material batches before effects |
+|---|---:|---:|
+| Generator | 75,378 | 32 |
+| Production cell | 56,978 | 77 |
+| Training workstation | 50,022 | 38 |
 
-Refinement captures are under `dist/generator-check/`: closed and expanded views at 1440×900, 390×844 and the actual 688×834 browser viewport; tablet opening and closing with reduced motion at 768×1024; the following production scene; and the JavaScript-disabled fallback. Reduced-motion engagement changes explicitly request a redraw even when the animation is already idle. The preview was restored to normal motion at the top of the page.
+Desktop (1440x900), phone (390x844), tablet (768x1024), compact phone (320x568) and short landscape (568x320) were inspected in the in-app browser. Native wheel reversal immediately moved from the training chapter back toward production. Pointer and Space-key activation opened/closed the access panel. Reduced-motion scenes settled immediately. Context loss and restoration both worked, including restored studio reflections. The JavaScript-disabled fallback was inspected separately.
 
-Physical mobile hardware and touch gestures have not been tested; the implementation uses native scrolling without custom touch handlers. The original workspace remains on `main`; the interactive-experiences branch is unmerged. Local recordings and verification captures under `dist/` are excluded from the source commit.
+A local desktop transition probe recorded a 5.6 ms median animation-frame interval, 5.7 ms p95 and 236 maximum GL draw calls per frame during the two-scene overlap. The last 40 idle frames issued zero GL draws. This is a measurement of this local browser and hardware, not a mobile performance guarantee. Physical phones and touch gestures have not been tested.
+
+**Visual QA: SHIP WITH NOTES.** The three-quarter views follow the approved palette, subjects, proportions and material direction; all models retain their intended movement. Compact framing was adjusted to clear the scroll hint and navigation. The result is a real-time interpretation of the concept rather than an offline render. Evidence is under `dist/model-refinement/` and is excluded from the source package.
+
+Changes to the homepage markup are limited to introduction asset versions. The studio-film section and all following content remain unchanged. The feature branch stays separate from `main`.

@@ -17,7 +17,7 @@
     try { document.getElementById(decodeURIComponent(initialHash.slice(1)))?.scrollIntoView({ behavior: 'instant' }); }
     catch { /* A malformed fragment must not affect the page. */ }
   }, { once: true });
-  import('./experience.js?v=2').catch(error => {
+  import('./experience.js?v=3').catch(error => {
     root.dataset.renderState = 'fallback';
     root.dispatchEvent(new Event('experience:settled'));
     console.warn('The introduction is using its still image.', error);

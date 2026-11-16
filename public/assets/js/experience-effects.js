@@ -45,7 +45,7 @@ export function createEffects({ scene, models, parts, keep }) {
         float fine = line(vGrid, .5, .25);
         float major = line(vGrid, 2.0, .38);
         float scan = exp(-pow((length(vGrid) - fract(uJourney) * 10.0) / .35, 2.0));
-        float alpha = (fine * .09 + major * .15 + fine * scan * .1) * fade;
+        float alpha = (fine * .055 + major * .085 + fine * scan * .06) * fade;
         if (alpha < .002) discard;
         gl_FragColor = vec4(uBlue, alpha);
         #include <colorspace_fragment>
