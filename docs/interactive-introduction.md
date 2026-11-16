@@ -65,4 +65,4 @@ A local desktop transition probe recorded a 5.6 ms median animation-frame interv
 
 **Visual QA: SHIP WITH NOTES.** The three-quarter views follow the approved palette, subjects, proportions and material direction; all models retain their intended movement. Compact framing was adjusted to clear the scroll hint and navigation. The result is a real-time interpretation of the concept rather than an offline render. Evidence is under `dist/model-refinement/` and is excluded from the source package.
 
-Changes to the homepage markup are limited to introduction asset versions. The studio-film section and all following content remain unchanged. The feature branch stays separate from `main`.
+The model refinement changes only the introduction and its asset versions. The subsequent studio-film control update is documented in [studio-film-player.md](studio-film-player.md). The feature branch stays separate from `main`.

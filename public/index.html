@@ -9,8 +9,9 @@
 <link rel="icon" href="assets/images/logo-icon.png">
 <link rel="apple-touch-icon" href="assets/images/logo-icon.png">
 <link rel="stylesheet" href="assets/css/styles.css">
-<link rel="stylesheet" href="assets/css/site.css?v=16">
+<link rel="stylesheet" href="assets/css/site.css?v=17">
 <script src="assets/js/site.js?v=9" defer></script>
+<script src="assets/js/film-player.js?v=1" defer></script>
 <script src="assets/js/visuals.js?v=architecture1" defer></script>
 <link rel="stylesheet" href="assets/css/experience.css?v=2">
 <script src="assets/js/experience-loader.js?v=3" defer></script>
@@ -125,11 +126,20 @@
 <p id="studio-film-summary">Watch our 90-second introduction to the experiences we build.</p>
 </div>
 <figure class="studio-film-player">
-<video controls playsinline preload="none" width="1920" height="1080" poster="assets/media/frostwater-studio-film-cover.webp" aria-label="FrostWater Studios promotional video" aria-describedby="studio-film-summary">
+<video id="studio-film-video" controls playsinline preload="none" width="1920" height="1080" poster="assets/media/frostwater-studio-film-cover.webp" aria-label="FrostWater Studios promotional video" aria-describedby="studio-film-summary">
 <source src="assets/media/frostwater-studio-film.mp4" type="video/mp4">
 Your browser does not support embedded video. <a href="assets/media/frostwater-studio-film.mp4">Open the studio film</a>.
 </video>
-<figcaption>FrostWater Studios &middot; 1 min 30 sec</figcaption>
+<button class="film-start" type="button" aria-label="Play studio film" aria-controls="studio-film-video" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5Z" fill="currentColor"/></svg></button>
+<div class="film-controls" role="group" aria-label="Video controls" hidden>
+<button class="film-button film-play" type="button" aria-label="Play video" aria-controls="studio-film-video"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="film-play-icon" d="m7 4 14 8-14 8Z" fill="currentColor"/><path class="film-pause-icon" d="M8 5v14M16 5v14" fill="none" stroke="currentColor" stroke-width="4"/></svg></button>
+<button class="film-button film-mute" type="button" aria-label="Mute video" aria-pressed="false" aria-controls="studio-film-video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4Z"/><path class="film-sound-icon" d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/><path class="film-muted-icon" d="m16 9 5 6m0-6-5 6"/></svg></button>
+<input class="film-range film-volume" type="range" min="0" max="1" step="0.05" value="1" aria-label="Video volume" style="--range-progress:100%">
+<input class="film-range film-seek" type="range" min="0" max="100" step="0.1" value="0" aria-label="Seek video" aria-valuetext="Video not started" disabled>
+<span class="film-time" aria-hidden="true"><span class="film-current">0:00</span><span class="film-duration" hidden></span></span>
+<button class="film-button film-fullscreen" type="button" aria-label="Enter full screen" aria-controls="studio-film-video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="film-expand-icon" d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/><path class="film-contract-icon" d="M3 8h5V3m8 0v5h5M8 21v-5H3m18 0h-5v5"/></svg></button>
+</div>
+<p class="film-status" role="status" hidden></p>
 </figure>
 </div>
 </section>
