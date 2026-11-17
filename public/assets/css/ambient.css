@@ -1,0 +1,45 @@
+/* Quiet, stepped square trails on an invisible grid. */
+.ambient-page { isolation: isolate; }
+.ambient-cubes {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  contain: strict;
+  /* Let the particles recede behind the central reading area. */
+  mask-image: linear-gradient(90deg, #000 0%, #000c 18%, #0006 38%, #0006 62%, #000c 82%, #000 100%);
+}
+.ambient-trail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+.ambient-cube {
+  position: absolute;
+  display: block;
+  box-sizing: border-box;
+  border: 1px solid #00aee99e;
+  background: #00aee92e;
+}
+.ambient-cube:first-child {
+  border-color: #00aee9;
+  background: #00aee9ad;
+  box-shadow: 0 0 6px #00aee926;
+}
+@media (max-width: 767px) {
+  .ambient-cubes {
+    opacity: .8;
+    mask-image: linear-gradient(90deg, #000 0%, #0006 28%, #0004 50%, #0006 72%, #000 100%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ambient-cubes { opacity: .5; }
+}
+@media (forced-colors: active), print {
+  .ambient-cubes { display: none; }
+}

@@ -1,0 +1,151 @@
+/* The process reads at the visitor's pace, in the normal page flow. */
+#about.process-section { overflow: visible; }
+.process-layout {
+  display: grid;
+  grid-template-columns: minmax(0, .86fr) minmax(0, 1.14fr);
+  gap: clamp(3rem, 6vw, 6rem);
+  align-items: start;
+}
+.process-intro { position: sticky; top: 104px; }
+.process-kicker {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin-bottom: 1.25rem;
+  color: var(--primary);
+  font-size: .8125rem;
+  font-weight: 500;
+  letter-spacing: .08em;
+}
+.process-kicker::before {
+  content: '';
+  width: 2.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, var(--primary), transparent);
+}
+.process-intro h2 {
+  margin: 0;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -.035em;
+}
+.process-intro h2 span { color: var(--primary); }
+.process-intro > p:last-child {
+  max-width: 23rem;
+  margin-top: 1.5rem;
+  color: #a6b3c3;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+.process-steps { list-style: none; margin: 0; padding: 0; }
+.process-step {
+  --step-space: 1.75rem;
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: 1rem 2.5rem minmax(0, 1fr);
+  column-gap: 1.25rem;
+  padding-block: var(--step-space);
+}
+.process-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 3.5rem;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: #8ca6bc16;
+}
+.process-connector {
+  position: absolute;
+  z-index: -1;
+  left: calc(.5rem - .5px);
+  top: calc(var(--step-space) + .875rem);
+  width: 1px;
+  height: 100%;
+  background: #00aee926;
+}
+.process-connector-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #00aee98c;
+  transform-origin: top;
+}
+.process-section:not(.is-enhanced) .process-connector-fill { opacity: .3; }
+.process-node {
+  position: relative;
+  justify-self: center;
+  width: 8px;
+  height: 8px;
+  margin-top: calc(.875rem - 4px);
+  border: 1px solid #00aee96b;
+  background: var(--background);
+}
+.process-node::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: var(--primary);
+  box-shadow: 0 0 0 4px #00aee914;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+.process-number {
+  color: var(--primary);
+  font-size: 1.375rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.75rem;
+  opacity: .4;
+  transition: opacity 180ms ease;
+}
+.process-step.is-current .process-number,
+.process-step.is-current .process-node::after { opacity: 1; }
+.process-step.is-past .process-number { opacity: .7; }
+.process-step.is-past .process-node::after { opacity: .4; }
+.process-step-copy h3 {
+  margin: 0;
+  color: var(--foreground);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.75rem;
+  letter-spacing: -.02em;
+}
+.process-step-copy p {
+  max-width: 29rem;
+  margin-top: .625rem;
+  color: #a6b3c3;
+  font-size: .9375rem;
+  line-height: 1.7;
+}
+.process-note {
+  margin-top: 2.5rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid #00aee91f;
+}
+.process-note h3 { font-size: 1rem; font-weight: 600; }
+.process-note p { max-width: 48rem; margin-top: .75rem; color: #a6b3c3; line-height: 1.7; }
+@media (max-width: 900px) {
+  .process-layout { grid-template-columns: 1fr; gap: 1.5rem; }
+  .process-intro { position: static; }
+  .process-intro > p:last-child { max-width: 34rem; }
+  .process-step { --step-space: 1.5rem; grid-template-columns: 1rem 2rem minmax(0, 1fr); column-gap: 1rem; }
+  .process-step-copy h3 { font-size: 1.25rem; }
+  .process-number { font-size: 1.125rem; }
+  .process-note { margin-top: 1.5rem; }
+}
+@media (max-height: 600px) { .process-intro { position: static; } }
+@media (prefers-reduced-motion: reduce) {
+  .process-number, .process-node::after { transition: none; }
+}
+@media (forced-colors: active) {
+  .process-connector, .process-node { background: Canvas; border-color: CanvasText; }
+  .process-connector-fill, .process-node::after { background: Highlight; }
+  .process-number { color: CanvasText; opacity: 1; }
+}
+@media print {
+  .process-intro { position: static; }
+  .process-step { break-inside: avoid; }
+}
