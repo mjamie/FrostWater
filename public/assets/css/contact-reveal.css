@@ -1,0 +1,68 @@
+/* A single, local assembly reveal; the normal form is the no-JS fallback. */
+.contact-build { position: relative; min-width: 0; }
+.contact-copy { position: relative; align-self: start; }
+.contact-build[data-build-state="waiting"] .contact-form,
+.contact-build[data-build-state="building"] .contact-form {
+  clip-path: inset(0 0 100% 0 round 16px);
+}
+.contact-pixels {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  user-select: none;
+  overflow: hidden;
+  border-radius: 16px;
+}
+.contact-pixel {
+  position: absolute;
+  display: block;
+  border: 1px solid #2abdf2;
+  background: #00aee926;
+  opacity: 0;
+}
+.contact-pixel.is-solid { background: #00aee9; border-color: transparent; }
+.contact-scan {
+  position: absolute;
+  top: 0;
+  left: 2%;
+  right: 2%;
+  height: 1px;
+  opacity: 0;
+  background: linear-gradient(90deg, transparent, #00aee9a6 25%, #65d6fc99 65%, transparent);
+}
+/* Keep one unbroken, readable version for assistive technology while typing. */
+#contact .contact-type-source {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+#contact .contact-type-visual { display: contents; color: inherit; }
+#contact .contact-character { display: inline; color: inherit; opacity: 0; }
+.contact-copy[data-copy-state="shocking"] > :not(.contact-glitch) { opacity: 0; }
+.contact-glitch {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  user-select: none;
+}
+.contact-glitch-fragment {
+  position: absolute;
+  inset: 0;
+  padding: inherit;
+  transform-origin: left center;
+}
+.contact-glitch-slice { text-shadow: -1.5px 0 #00aee98c, 1px 0 #63d8fc59; }
+@media (prefers-reduced-motion: reduce), (forced-colors: active), print {
+  .contact-build[data-build-state] .contact-form { clip-path: none !important; }
+  #contact .contact-character { opacity: 1 !important; }
+  .contact-copy[data-copy-state="shocking"] > :not(.contact-glitch) { opacity: 1; }
+  .contact-pixels, .contact-glitch { display: none; }
+}

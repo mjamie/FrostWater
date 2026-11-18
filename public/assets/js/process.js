@@ -21,7 +21,7 @@
     if (motion.matches || !offsets.length) return;
     // Read once, then write only transforms and state. No timer or scroll interception.
     const position = readingLine - list.getBoundingClientRect().top;
-    let next = 0;
+    let next = -1;
     offsets.forEach((offset, index) => { if (position >= offset) next = index; });
     fills.forEach((fill, index) => {
       if (!fill) return;
